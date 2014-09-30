@@ -12,14 +12,12 @@ migrations for Datomic.
    ;; 1st generation
    [{:db/id #db/id[:db.part/db]
      :db/ident :foo/bar
-	 ...
-     :db.install/_attribute :db.part/db}]
+	 ...}
 
    ;; 2st generation
    [{:db/id #db/id[:db.part/db]
      :db/ident :foo/baz
-	 ...
-     :db.install/_attribute :db.part/db}
+	 ...}
      ...]
 
    ])
