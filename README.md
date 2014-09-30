@@ -5,8 +5,7 @@ migrations for Datomic.
 
 ## Usage
 
-``clojure
-
+```clojure
 (def GENERATIONS
   [
 
@@ -27,8 +26,7 @@ migrations for Datomic.
 
 ;; Install all generations which are not installed yet.
 (ilshad.generations/install generations db-conn))
-
-``
+```
 
 ## License
 
