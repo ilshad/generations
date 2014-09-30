@@ -14,14 +14,14 @@
     :db/valueType :db.type/long
     :db/cardinality :db.cardinality/one
     :db/unique :db.unique/identity
-    :db/doc "Generation number, 0...n"
+    :db/doc "Generation number, 1...n"
     :db.install/_attribute :db.part/db}
    {:db/id #db/id[:db.part/db]
     :db/ident :generation/data
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/unique :db.unique/identity
-    :db/doc "Generation tx-data"
+    :db/doc "tx-data, in string."
     :db.install/_attribute :db.part/db}])
 
 (defn- ensure-generations-schema [conn]
