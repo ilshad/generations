@@ -3,6 +3,14 @@
 A Clojure library designed to support simple database schema
 migrations for Datomic.
 
+## Installation
+
+Leiningen coordinates:
+
+```clojure
+[ilshad/generations "0.1.0"]
+```
+
 ## Usage
 
 ```clojure
