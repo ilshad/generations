@@ -25,7 +25,7 @@ migrations for Datomic.
    ])
 
 ;; Install all generations which are not installed yet.
-(ilshad.generations/install generations db-conn))
+(ilshad.generations/install GENERATIONS db-conn))
 ```
 
 ## License

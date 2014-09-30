@@ -1,7 +1,7 @@
 (ns ilshad.generations
   (:require [datomic.api :as d]))
 
-(defn- generations-schema [dbv]
+(defn- query-generations-schema [dbv]
   (d/q '[:find ?c
          :in $
          :where
@@ -25,8 +25,8 @@
     :db.install/_attribute :db.part/db}])
 
 (defn- ensure-generations-schema [conn]
-  (when (empty? (generations-schema (d/db conn)))
-    @(d/transact conn genarations-schema)))
+  (when (-> conn d/db query-generations-schema empty?)
+    @(d/transact conn generations-schema)))
 
 (defn- all-generations-ids [dbv]
   (d/q '[:find ?id
@@ -37,14 +37,14 @@
 
 (defn install [generations conn]
   (ensure-generations-schema conn)
-  (let [dbv (d/db conn)
-        ids (all-generations-ids dbv)
-        max-id (if (empty? ids) 0 (apply max ids))]
-    (doseq [i (range max-id (count generations))
+  (let [ids (map first (all-generations-ids (d/db conn)))
+        last-id (if (empty? ids) 0 (apply max ids))]
+    (doseq [i (range last-id (count generations))
             :let [data (nth generations i)
                   id (inc i)]]
       @(d/transact conn
-         (conj data {:db/id (d/tempid :db.part/user)
-                     :generation/id id
-                     :generation/data (str data)}))
+         (conj data
+               {:db/id (d/tempid :db.part/user)
+                :generation/id id
+                :generation/data (str data)}))
       (println (str id "st generation has been installed successfully.")))))
