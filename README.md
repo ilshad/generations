@@ -1,6 +1,7 @@
 # generations
 
-A Clojure library designed to support simple database migrations for Datomic.
+A Clojure library designed to support simple database schema migrations
+for Datomic.
 
 ## Installation
 
@@ -12,8 +13,7 @@ Leiningen coordinates:
 
 ## Usage
 
-Save Datomic schema into vector of vectors (generations). For
-example:
+Save Datomic schema into vector of vectors (generations). For example:
 
 ```clojure
 (def GENERATIONS
@@ -38,7 +38,7 @@ example:
    ])
 ```
 
-`install` command automatically install generations which are not
+`install` command automatically installs only generations which are not
 installed yet:
 
 ```clojure
@@ -54,7 +54,7 @@ database schema always installed.
             [ilshad.generations :as g]))
 
 (defn -main [& args]
-  (let [uri "datomic:dev://localhost:4334/my-database")]
+  (let [uri "datomic:dev://localhost:4334/my-database"]
     (when (d/create-database uri)
 	  (log/info "New database was created"))
     (g/install GENERATIONS (d/connect uri))))
