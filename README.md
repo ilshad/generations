@@ -38,18 +38,30 @@ example:
    ])
 ```
 
-Follow command automatically pass into db/transact only
-generations which are not installed yet:
+`install` command automatically install generations which are not
+installed yet:
 
 ```clojure
-(require '[ilshad.generations :as g])
-
-(g/install GENERATIONS conn)
+(ilshad.generations/install GENERATIONS db-conn)
 ```
 
-This library installs :generation/id and :generation/data
-into database and so it stores information about all
-generations.
+For example, put this into main function to ensure actual
+database schema always installed.
+
+```clojure
+(ns my-project
+  (:require [datomic.api :as d]
+            [ilshad.generations :as g]))
+
+(defn -main [& args]
+  (let [uri "datomic:dev://localhost:4334/my-database")]
+    (when (d/create-database uri)
+	  (log/info "New database was created"))
+    (g/install GENERATIONS (d/connect uri))))
+```
+
+This library installs `:generation/id` and `:generation/data`
+into database and so it stores information about all generations.
 
 ## License
 
