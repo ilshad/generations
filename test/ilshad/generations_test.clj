@@ -1,5 +1,6 @@
 (ns ilshad.generations-test
-  (:require [clojure.test :refer :all]
+  (:require [datomic.api :as d]
+            [clojure.test :refer :all]
             [ilshad.generations :refer :all]))
 
 (deftest a-test
