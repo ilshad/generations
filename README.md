@@ -8,7 +8,7 @@ for Datomic.
 Leiningen coordinates:
 
 ```clojure
-[ilshad/generations "0.1.0"]
+[ilshad/generations "0.2.0"]
 ```
 
 ## Usage
@@ -38,11 +38,11 @@ Save Datomic schema into vector of vectors (generations). For example:
    ])
 ```
 
-`install` command automatically installs only generations which are not
+`install` automatically installs only generations which are not
 installed yet:
 
 ```clojure
-(ilshad.generations/install GENERATIONS db-conn)
+(ilshad.generations/install GENERATIONS my-logging-funciton db-conn)
 ```
 
 For example, put this into main function to ensure actual
@@ -51,13 +51,14 @@ database schema always installed.
 ```clojure
 (ns my-project
   (:require [datomic.api :as d]
+	        [clojure.tools.logging :as log]
             [ilshad.generations :as g]))
 
 (defn -main [& args]
   (let [uri "datomic:dev://localhost:4334/my-database"]
     (when (d/create-database uri)
 	  (log/info "New database was created"))
-    (g/install GENERATIONS (d/connect uri))))
+    (g/install GENERATIONS log/info (d/connect uri))))
 ```
 
 This library installs `:generation/id` and `:generation/data`

@@ -35,7 +35,13 @@
          [?c :generation/id ?id]]
     dbv))
 
-(defn install [generations conn]
+(defn install
+  "Install all generations which are not installed yet.
+   Arguments:
+   - generations - vector of vectors,
+   - logger function (for example `println`),
+   - database connection."
+  [generations logger conn]
   (ensure-generations-schema conn)
   (let [ids (map first (all-generations-ids (d/db conn)))
         last-id (if (empty? ids) 0 (apply max ids))]
@@ -47,4 +53,4 @@
                {:db/id (d/tempid :db.part/user)
                 :generation/id id
                 :generation/data (str data)}))
-      (println (str id "st generation has been installed successfully.")))))
+      (logger (str id "st generation has been installed successfully.")))))

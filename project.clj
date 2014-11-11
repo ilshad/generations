@@ -1,4 +1,4 @@
-(defproject ilshad/generations "0.2.0-SNAPSHOT"
+(defproject ilshad/generations "0.2.0"
   :description "Datomic schema migrations"
   :url "http://github.com/ilshad/generations"
   :license {:name "Eclipse Public License"
