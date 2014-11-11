@@ -39,9 +39,9 @@
   "Install all generations which are not installed yet.
    Arguments:
    - generations - vector of vectors,
-   - logger function (for example `println`),
+   - logging function,
    - database connection."
-  [generations logger conn]
+  [generations log-fn conn]
   (ensure-generations-schema conn)
   (let [ids (map first (all-generations-ids (d/db conn)))
         last-id (if (empty? ids) 0 (apply max ids))]
@@ -53,4 +53,4 @@
                {:db/id (d/tempid :db.part/user)
                 :generation/id id
                 :generation/data (str data)}))
-      (logger (str id "st generation has been installed successfully.")))))
+      (log-fn (str id "st generation has been installed successfully.")))))

@@ -42,7 +42,7 @@ Save Datomic schema into vector of vectors (generations). For example:
 installed yet:
 
 ```clojure
-(ilshad.generations/install GENERATIONS my-logging-funciton db-conn)
+(ilshad.generations/install GENERATIONS my-logging-function db-conn)
 ```
 
 For example, put this into main function to ensure actual
@@ -51,14 +51,13 @@ database schema always installed.
 ```clojure
 (ns my-project
   (:require [datomic.api :as d]
-	        [clojure.tools.logging :as log]
             [ilshad.generations :as g]))
 
 (defn -main [& args]
   (let [uri "datomic:dev://localhost:4334/my-database"]
     (when (d/create-database uri)
 	  (log/info "New database was created"))
-    (g/install GENERATIONS log/info (d/connect uri))))
+    (g/install GENERATIONS println (d/connect uri))))
 ```
 
 This library installs `:generation/id` and `:generation/data`
