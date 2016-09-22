@@ -49,4 +49,4 @@
                {:db/id (d/tempid :db.part/user)
                 :generation/id id
                 :generation/data (str data)}))
-      (log/info (str id "st generation has been installed.")))))
+      (log/info id "st generation has been installed."))))

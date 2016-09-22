@@ -84,8 +84,8 @@ schema always installed:
 (defn -main [& args]
   (let [uri "datomic:dev://localhost:4334/my-database"]
     (when (d/create-database uri)
-	  (log/info "New database was created"))
-    (g/install GENERATIONS println (d/connect uri))))
+	  (log/info "New database has been created:" uri))
+    (g/install my-project-generations (d/connect uri))))
 ```
 
 To achieve its goal, this library installs `:generation/id` and
